@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/.out": true,
+			"**/*.meta": true,
+			"**/*.csproj": true,
+			"**/*.sln": true,
+			"**/*.sublime-workspace": true,
+			"**/*.sublime-project": true,
+			"**/bin": true,
+			"**/Build": true,
+			"**/Library": true,
+			"**/obj": true,
+			"**/Packages": true,
+			"**/ProjectSettings": true,
+			"**/Temp": true,
+			"**/.vs": true,
+			"**/.vscode": true,
+			"**/*.package": true
+		},
+		"diffEditor.ignoreTrimWhitespace": false,
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4,
+		"omnisharp.useEditorFormattingSettings": true,
+		"editor.codeLens": false,
+		"editor.hover.enabled": false
+	}
+}

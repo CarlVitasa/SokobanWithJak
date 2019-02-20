@@ -1,5 +1,6 @@
 [Ll]ibrary/
 [Tt]emp/
+[Ll]ogs/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
@@ -34,3 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Extra
