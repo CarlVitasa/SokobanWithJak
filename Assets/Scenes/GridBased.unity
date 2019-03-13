@@ -289,7 +289,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wallObj: {fileID: 6200362606333937369, guid: cb9ed8f16b1674370a817129343978a3,
     type: 3}
-  _spacing: 1.1
+  _playerObj: {fileID: 5282256735494688467, guid: fdb12c9da565e485fb3b5fdc45886309,
+    type: 3}
+  _spacing: 0
 --- !u!4 &283221090
 Transform:
   m_ObjectHideFlags: 0

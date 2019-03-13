@@ -83,8 +83,9 @@ public class Moveable : MonoBehaviour {
 
 	// data
 	private Tween _movementTween;
-
 	private Scanner _scanner;
+	private Tile _tile;
+	private Grid _grid;
 
 	// logic
 	private void Awake () {
@@ -96,6 +97,15 @@ public class Moveable : MonoBehaviour {
 
 		return _movementTween == null;
 	}
+
+	// private bool CanMove ( Directions direction ) {
+
+	// 	bool canMove = false;
+
+	// 	if ( _grid.TileAtDirection() )
+
+	// 		return canMove;
+	// }
 
 	private bool CanMove ( Directions direction ) {
 

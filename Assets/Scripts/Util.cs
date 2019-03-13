@@ -30,8 +30,3 @@ public enum Directions {
 	Right
 }
 
-public enum TileTypes {
-	Empty,
-	Movable,
-	Immovable
-}

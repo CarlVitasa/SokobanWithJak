@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 
-	private enum TileType {
-		Invalid = -1,
-		Wall,
-		Floor
-	}
-
 	[SerializeField] private GameObject _wallObj;
+	[SerializeField] private GameObject _playerObj;
 	[SerializeField] private float _spacing = 1f;
 
 	// public TileInfo GetInfoForTile( int x, int y )
 	// public TileInfo GetInfoForTile( TileInfo tile, Direction direction )
+
 
 	private char[,] _data = new char[,] {
 		{ 'x','x','x','x','x' },
@@ -25,8 +21,9 @@ public class Grid : MonoBehaviour {
 		{ 'x','x','x','x','x' }
 	};
 
-	void Awake () {
+	private Tile tile;
 
+	void Awake () {
 		SpawnGrid();
 	}
 
@@ -38,47 +35,45 @@ public class Grid : MonoBehaviour {
 		// read from `data` at coordinate
 		// get prefab for above
 		// spawn at some world location
-
-		for ( int col = 0; col < _data.GetLength( 1 ); col++ ) {
-			for ( int row = 0; row < _data.GetLength( 0 ); row++ ) {
+		for ( int row = 0; row < _data.GetLength( 0 ); row++ ) {
+			for ( int col = 0; col < _data.GetLength( 1 ); col++ ) {
 				var tileType = ReadData( _data, row, col );
 				var tile = GetObject( tileType );
 				PlaceTile( tile, row, col );
+				// Debug.Log( TileAtDirection( data, 2, 3, Directions.Left ) );
 			}
 		}
-
-		// for ( int x = 0; x < _data.GetLength( 1 ); x++ ) {
-		// 	for ( int z = 0; z < _data.GetLength( 0 ); z++ ) {
-		// 		var c = _data[z, x];
-		// 		if ( c == 'x' ) {
-		// 			GameObject.Instantiate( _wallObj, new Vector3(
-		// 				transform.position.x + x,
-		// 				0,
-		// 				transform.position.z - z ),
-		// 			Quaternion.identity );
-		// 		}
-		// 	}
-		// }
 	}
+	private TileTypes ReadData ( char[,] data, int row, int column ) {
 
-	private TileType ReadData ( char[,] data, int row, int column ) {
 		switch ( data[row, column] ) {
+			case 'p':
+				return TileTypes.Player;
 			case 'x':
-				return TileType.Wall;
+				return TileTypes.Wall;
 			case 'o':
-				return TileType.Floor;
+				return TileTypes.Floor;
 			default:
-				return TileType.Invalid;
+				return TileTypes.Invalid;
 		}
 	}
 
-	private GameObject GetObject ( TileType tileType ) {
+	private GameObject GetObject ( TileTypes tileType ) {
+
 		switch ( tileType ) {
-			case TileType.Wall:
+			case TileTypes.Wall:
 				return Instantiate( _wallObj );
+			case TileTypes.Player:
+				return Instantiate( _playerObj );
 			default:
 				return null;
 		}
+	}
+
+	private Vector3 GetPosition ( int row, int column ) {
+
+		return new Vector3( column * ( _spacing + 1.0f ), 0f, -row * ( _spacing + 1.0f ) );
+		// return new Vector3( column * _spacing + Random.Range( 0.0f, 0.1f ), 0f, -row * _spacing + Random.Range( 0.0f, 0.1f ) );
 	}
 
 	private void PlaceTile ( GameObject tile, int row, int column ) {
@@ -90,13 +85,27 @@ public class Grid : MonoBehaviour {
 		tile.transform.position = GetPosition( row, column );
 	}
 
-	private Vector3 GetPosition ( int row, int column ) {
 
-		return new Vector3( column * _spacing + Random.Range( 0.0f, 0.1f ), 0f, -row * _spacing + Random.Range( 0.0f, 0.1f ) );
+
+	public TileTypes TileAtDirection ( int row, int col, Directions dir ) {
+
+		TileTypes tile = TileTypes.Floor;
+
+		switch ( dir ) {
+			case Directions.Up:
+				tile = ReadData( _data, row - 1, col );
+				break;
+			case Directions.Down:
+				tile = ReadData( _data, row + 1, col );
+				break;
+			case Directions.Left:
+				tile = ReadData( _data, row, col - 1 );
+				break;
+			case Directions.Right:
+				tile = ReadData( _data, row, col + 1 );
+				break;
+		}
+		return tile;
 	}
 }
 
-// generate cubes based on grid
-// serialize field type of blocks
-
-// determine colors based on characters
